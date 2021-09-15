@@ -4,7 +4,7 @@ package FateenJmartFH;
 /**
  * Write a description of class Jmart here.
  *
- * @author (your name)
+ * @author Fateen Najib Indramustika
  * @version (a version number or a date)
  */
 public class Jmart
@@ -12,9 +12,15 @@ public class Jmart
     public static void main(String[] args) {
         System.out.println(getPromo());
         System.out.println(getCustomer());
-        System.out.println(getDiscountPercentage(1000, 900));
+        System.out.println(getDiscountPercentage(900, 800));
         System.out.println(getDiscountedPrice(1000, 10.0f));
+        System.out.println(getOriginalPrice(900, 10.0f));
+        System.out.println(getAdjustedPrice(1000));
+        System.out.println(getAdminFee(1000));
+
+
     }
+    
     public static int getPromo(){
         return 0;
     }
@@ -27,22 +33,22 @@ public class Jmart
         if(before < after){
             return 0;
         }
-        return (before - after)/10;
+        return (((float)before - (float)after)/(float)before)*100;
     }
 
     public static int getDiscountedPrice(int price, float discountPercentage){
-        if(discountPercentage>100){
+        if(discountPercentage > 100){
             return 0;
         }
-        return price - (int)(price * discountPercentage);
+        return price - (int)(price * discountPercentage/100);
     }
 
     public static int getOriginalPrice(int DiscountedPrice, float discountPercentage){
-       return DiscountedPrice / (int)(1 - discountPercentage);
+       return (int)((float)DiscountedPrice / (1 - (discountPercentage / 100)));
     }
 
     public static float getCommissionMultiplier(){
-        return (float)0.05;
+        return 0.05f;
     }
     
     public static int getAdjustedPrice(int price){
@@ -50,6 +56,6 @@ public class Jmart
     }
 
     public static int getAdminFee(int price) {
-        return (int)((float)price * getCommissionMultiplier());
+        return (int)(price * getCommissionMultiplier());
     }
 }
