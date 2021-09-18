@@ -58,4 +58,8 @@ public class Jmart
     public static int getAdminFee(int price) {
         return (int)(price * getCommissionMultiplier());
     }
+
+    public static Product create(){
+        return null;
+    }
 }
