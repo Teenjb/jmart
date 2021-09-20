@@ -32,10 +32,11 @@ public class PriceTag
         }
     }
     public double getAdjustedPrice(){
-        return getAdminFee()+getDiscountedPrice();
+        return getAdminFee()+ getDiscountedPrice();
     }
+    
     public double getAdminFee(){
-        double temp = this.price * (1 - (this.discount / 100.0));
+        double temp = this.price * (this.discount / 100.0);
         if(temp < BOTTOM_PRICE){
             temp = BOTTOM_FEE;
         }

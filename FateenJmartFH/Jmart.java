@@ -60,6 +60,15 @@ public class Jmart
     }
 
     public static Product create(){
+        return new Product("Bag", 1000, true, new PriceTag(10000), ProductCategory.FASHION);
+    }
+    public static Product createProduct(){
+        return null;
+    }
+    public static Coupon Coupon(){
+        return null;
+    }
+    public static ShipmentDuration ShipmentDuration(){
         return null;
     }
 }
