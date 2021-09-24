@@ -46,11 +46,10 @@ public class Coupon
         this.used = true;
         switch(type){
             case REBATE:
-                return 0.0;
-            case DISCOUNT:
-                return 0.0;
+                return (priceTag.getAdjustedPrice() - cut);
+            default:
+                return (priceTag.getAdjustedPrice() * (1-(cut/100)));
         }
-        return 0.0;
     }
 
 }
