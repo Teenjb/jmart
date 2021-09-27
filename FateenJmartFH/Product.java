@@ -40,4 +40,5 @@ public class Product extends Recognizable implements FileParser
     public String toString(){
         return "name: " + (String)this.name + "\n" + "weight: " + (int)this.weight + "\n" + "conditionUsed: " +  (boolean)this.conditionUsed + "priceTag: " + (Double)this.priceTag.getAdjustedPrice() + "\n" + "Category: " + this.category + "\n" + "Rating: " + (int)this.rating.getAvarage() + "\n" + "Store: " + this.storeId;
     }
+    
 }
