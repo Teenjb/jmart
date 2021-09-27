@@ -2,31 +2,34 @@ package FateenJmartFH;
 
 
 /**
- * Write a description of class Transaction here.
+ * menyimpan data pembeli untuk kebutuhan transaksi.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Fateen
+ * @version 01
  */
 abstract class Transaction extends Recognizable
 {
-    public enum Rating{
+    public static enum Rating{
         NONE,BAD,NEUTRAL,GOOD;
     }
+
     public String time = "TIME";
     public int buyerId;
     public int storeId;
     public Rating rating = Rating.NONE;
 
-    public Transaction(int id, int buyerId, int storeId){
+    protected Transaction(int id, int buyerId, int storeId){
         super(id);
         this.buyerId = buyerId;
         this.storeId = storeId;
-        
     }
-    public Transaction(int id, Account buyer, Store store){
+
+    protected Transaction(int id, Account buyer, Store store){
         super(id);
-        
+        this.buyerId = buyer.id;
+        this.storeId = store.id;
     }
+
     public abstract boolean validate();
     public abstract Transaction perform();
 }

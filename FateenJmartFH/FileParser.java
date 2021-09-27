@@ -10,6 +10,12 @@ package FateenJmartFH;
 public interface FileParser
 {
    public boolean read(String content);
-   public Object write();
-   public Object newInstance(String content);
+
+   default Object write(){
+       return null;
+   }
+   
+   static Object newInstance(String content){
+       return null;
+   }
 }

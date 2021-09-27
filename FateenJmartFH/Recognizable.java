@@ -7,9 +7,9 @@ package FateenJmartFH;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class Recognizable
+public abstract class Recognizable
 {
-    public int id;
+    public final int id;
 
 
     protected Recognizable(int id)

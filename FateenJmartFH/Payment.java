@@ -7,35 +7,25 @@ package FateenJmartFH;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class Payment extends Transaction implements FileParser
-{
-    public int productId;
-    public ShipmentDuration shipmentDuration;
 
-    // public Payment(int id, int buyerId, Product product, ShipmentDuration shipmentDuration){
-    //     super(id, buyer,);
-    //     this.shipmentDuration = shipmentDuration;
-    // }
-    public Payment(int id, int buyerId, int storeId, int productId, ShipmentDuration shipmentDuration){
-        super(id, buyerId, storeId);
-        this.productId = productId;
-        this.shipmentDuration = shipmentDuration;
-        this.storeId = storeId;
-        this.id = id;
+public class Payment extends Invoice implements Transactor
+{
+    public Shipment shipment;
+    public int productCount;
+
+    public Payment(int id, int buyerId, int productId, int productCount, Shipment shipment){
+        super(id,buyerId,productId);
+        this.shipment = shipment;
     }
-    public boolean read(String content){
-        return false;
-    }
-    public Object write(){
-        return null;
-    }
-    public Object newInstance(String content){
-        return null;
+
+    @Override
+    public double getTotalPay(){
+        return 0.0;
     }
     public boolean validate(){
         return false;
     }
-    public Transaction perform(){
+    public Invoice perform(){
         return null;
     }
 }

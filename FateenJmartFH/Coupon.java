@@ -7,7 +7,7 @@ package FateenJmartFH;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class Coupon
+public class Coupon extends Recognizable implements FileParser
 {
     
     public final String name;
@@ -21,9 +21,9 @@ public class Coupon
         DISCOUNT, REBATE
     }
 
-    public Coupon(String name, int code, Type type, double cut, double minimum)
+    public Coupon(int id, String name, int code, Type type, double cut, double minimum)
     {
-        // super(id);
+        super(id);
         this.name = name;
         this.code = code;
         this.cut = cut;
@@ -53,4 +53,8 @@ public class Coupon
         }
     }
 
+    @Override
+    public boolean read(String content){
+        return false;
+    }
 }

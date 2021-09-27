@@ -68,7 +68,7 @@ public class Jmart
     public static Coupon Coupon(){
         return null;
     }
-    public static ShipmentDuration ShipmentDuration(){
+    public static Shipment.Duration ShipmentDuration(){
         return null;
     }
 }
