@@ -30,7 +30,7 @@ public class Shipment implements FileParser
         }
     }
     public class MultiDuration{
-        private byte bit;
+        public byte bit;
         public MultiDuration(byte...bit_input){
             for(byte i:bit_input){
                 this.bit = (byte)(this.bit|i);

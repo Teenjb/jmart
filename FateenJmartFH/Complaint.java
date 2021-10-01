@@ -27,7 +27,7 @@ public class Complaint extends Recognizable implements FileParser
         return false;
     }
 
-    public Transaction perform(){
+    public Transactor perform(){
         return null;
     }
 }

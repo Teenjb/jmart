@@ -16,6 +16,7 @@ public class Payment extends Invoice implements Transactor
     public Payment(int id, int buyerId, int productId, int productCount, Shipment shipment){
         super(id,buyerId,productId);
         this.shipment = shipment;
+        this.productCount = productCount;
     }
 
     @Override

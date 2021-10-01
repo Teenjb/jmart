@@ -34,4 +34,7 @@ public class Store extends Recognizable implements FileParser
     public Object newInstance(String content){
         return null;
     }
+    public String toString(){
+        return "name: " + (String)this.name + "\n" + "address: " + (String)this.address + "\n" + "Phone Number" + (String)this.phoneNumber;
+    }
 }
