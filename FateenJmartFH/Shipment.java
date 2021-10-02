@@ -1,5 +1,8 @@
 package FateenJmartFH;
 
+import java.util.Date;
+import java.util.Calendar;
+import java.text.SimpleDateFormat;
 
 /**
  * Write a description of class Shipment here.
@@ -10,6 +13,7 @@ package FateenJmartFH;
 public class Shipment implements FileParser
 {
     public static class Duration{
+        public static final SimpleDateFormat ESTIMATION_FORMAT = new SimpleDateFormat("E MMMM dd yyyy");
         public static final Duration INSTANT = new Duration((byte)(1 << 0));    //1
         public static final Duration SAME_DAY = new Duration((byte)(1 << 1));   //2
         public static final Duration NEXT_DAY = new Duration((byte)(1 << 2));   //4
@@ -27,6 +31,25 @@ public class Shipment implements FileParser
                 return true;
             }
             return false;
+        }
+
+        public String getEstimatedArrival(Date reference){
+            Calendar temp = Calendar.getInstance();
+            if(this.bit == 1<<0|| this.bit == 1<<1){
+                return ESTIMATION_FORMAT.format(reference.getTime());
+            }else if(this.bit == 1<<2){
+                temp.setTime(reference);
+                temp.add(Calendar.DATE,1);
+                return ESTIMATION_FORMAT.format(temp);
+            }else if(this.bit == 1<<3){
+                temp.setTime(reference);
+                temp.add(Calendar.DATE,2);
+                return ESTIMATION_FORMAT.format(temp);
+            }else{
+                temp.setTime(reference);
+                temp.add(Calendar.DATE,5);
+                return ESTIMATION_FORMAT.format(temp);
+            }
         }
     }
     public class MultiDuration{
@@ -59,4 +82,5 @@ public class Shipment implements FileParser
     public boolean read(String content){
         return false;
     }
+    
 }

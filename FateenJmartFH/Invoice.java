@@ -1,5 +1,6 @@
 package FateenJmartFH;
 
+import java.util.Date;
 
 /**
  * Write a description of class Invoice here.
@@ -17,7 +18,7 @@ public abstract class Invoice extends Recognizable implements FileParser
         NONE,BAD,NEUTRAL,GOOD;
     }
 
-    public String date;
+    public Date date;
     public int buyerId;
     public int productId;
     public int complainId;
@@ -28,7 +29,7 @@ public abstract class Invoice extends Recognizable implements FileParser
         super(id);
         this.buyerId = buyerId;
         this.productId = productId;
-        this.date = "31 Desember 2021";
+        this.date = new Date();
         this.rating = Rating.NONE;
         this.status = Status.WAITING_CONFIRMATION;
     }

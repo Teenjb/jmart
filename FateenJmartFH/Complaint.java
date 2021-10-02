@@ -1,5 +1,5 @@
 package FateenJmartFH;
-
+import java.util.Date;
 
 /**
  * Write a description of class complain here.
@@ -9,13 +9,13 @@ package FateenJmartFH;
  */
 public class Complaint extends Recognizable implements FileParser
 {
-    public String date;
+    public Date date;
     public String desc;
 
     public Complaint(int id, String desc){
         super(id);
         this.desc = desc;
-
+        this.date = new Date();
     }
 
     @Override
@@ -30,4 +30,5 @@ public class Complaint extends Recognizable implements FileParser
     public Transactor perform(){
         return null;
     }
+
 }

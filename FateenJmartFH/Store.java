@@ -1,5 +1,7 @@
 package FateenJmartFH;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Write a description of class Store here.
@@ -9,6 +11,8 @@ package FateenJmartFH;
  */
 public class Store extends Recognizable implements FileParser
 {
+    public static final String REGEX_PHONE = "^(/d{9,12})$";
+    public static final String REGEX_NAME = "^[A-Z a-z]{0-20} [A-Z a-z]{4,20}";
     public String name;
     public String address;
     public String phoneNumber;
@@ -36,5 +40,16 @@ public class Store extends Recognizable implements FileParser
     }
     public String toString(){
         return "name: " + (String)this.name + "\n" + "address: " + (String)this.address + "\n" + "Phone Number" + (String)this.phoneNumber;
+    }
+    public boolean validate(){
+        Pattern pattern = Pattern.compile(REGEX_PHONE);
+        Matcher matcher = pattern.matcher(this.phoneNumber);
+        Pattern pattern1 = Pattern.compile(REGEX_NAME);
+        Matcher matcher1 = pattern1.matcher(this.name);
+        if(matcher.find() && matcher1.find()){
+            return true;
+        }else{
+            return false;
+        }
     }
 }
