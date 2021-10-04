@@ -10,15 +10,9 @@ package FateenJmartFH;
 public class Jmart
 {
     public static void main(String[] args) {
-        System.out.println(getPromo());
-        System.out.println(getCustomer());
-        System.out.println(getDiscountPercentage(900, 800));
-        System.out.println(getDiscountedPrice(1000, 10.0f));
-        System.out.println(getOriginalPrice(900, 10.0f));
-        System.out.println(getAdjustedPrice(1000));
-        System.out.println(getAdminFee(1000));
-
-
+        Account akun1 = akun();
+        System.out.println(akun1.validate());
+        System.out.println(akun1.id);
     }
     
     public static int getPromo(){
@@ -70,5 +64,10 @@ public class Jmart
     }
     public static Shipment.Duration ShipmentDuration(){
         return null;
+    }
+
+    public static Account akun(){
+        Account akun1 = new Account(10, "Fateen", "FateenNajib@gmail.com", "Fateen1najib");
+        return akun1;
     }
 }

@@ -2,10 +2,10 @@ package FateenJmartFH;
 
 
 /**
- * Write a description of interface FileParser here.
+ * interface FileParser is used to access file.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author fateen
+ * @version 1.0
  */
 public interface FileParser
 {

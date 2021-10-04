@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 
 /**
- * Write a description of class Filter here.
+ * filter is used to select priceTag and Rating.
  *
  * @author (your name)
  * @version (a version number or a date)
@@ -21,7 +21,7 @@ public class Filter
             }
         }else{
             for(int x=0; x < list.length; x++){
-                if(list[x].getAdjustedPrice() > value){
+                if(list[x].getAdjustedPrice() >= value){
                     store.add(list[x]);
                 }
             }
@@ -29,4 +29,19 @@ public class Filter
         return store;
     }
 
+    public static void filterProductRating(ArrayList<ProductRating> list, double value, boolean less){
+        if(less){
+            for(int x=0; x < list.size(); x++){
+                if(list.get(x).getAvarage() < value){
+                    list.remove(x);
+                }
+            }
+        }else{
+            for(int x=0; x < list.size(); x++){
+                if(list.get(x).getAvarage() >= value){
+                    list.remove(x);
+                }
+            }
+        }
+    }
 }

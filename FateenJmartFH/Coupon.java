@@ -2,10 +2,10 @@ package FateenJmartFH;
 
 
 /**
- * Write a description of class Coupon here.
- *
- * @author (your name)
- * @version (a version number or a date)
+ * Class to access coupon
+ * 
+ * @author fateen
+ * @version 1.0
  */
 public class Coupon extends Recognizable implements FileParser
 {

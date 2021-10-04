@@ -2,7 +2,7 @@ package FateenJmartFH;
 
 
 /**
- * Write a description of interface Transactor here.
+ * Abstract class that include validate and perform
  *
  * @author (your name)
  * @version (a version number or a date)

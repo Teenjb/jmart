@@ -1,5 +1,6 @@
 package FateenJmartFH;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -18,12 +19,19 @@ public abstract class Invoice extends Recognizable implements FileParser
         NONE,BAD,NEUTRAL,GOOD;
     }
 
+    public class Record{
+        public Status status;
+        public Date date;
+        public String message;
+    }
+
     public Date date;
     public int buyerId;
     public int productId;
     public int complainId;
     public Rating rating;
     public Status status;
+    public ArrayList<Record> history;
 
     protected Invoice(int id, int buyerId, int productId){
         super(id);
