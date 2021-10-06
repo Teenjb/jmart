@@ -5,7 +5,7 @@ package FateenJmartFH;
  * interface FileParser is used to access file.
  *
  * @author fateen
- * @version 1.0
+ * @version 1.0A
  */
 public interface FileParser
 {

@@ -37,7 +37,7 @@ public class Coupon extends Recognizable implements FileParser
     }
 
     public boolean canApply(PriceTag priceTag){
-        if(priceTag.getAdjustedPrice() >= this.minimum && this.used == false){
+        if(priceTag.getAdjustedPrice() >= this.minimum && !this.used){
             return true;
         }
         return false;

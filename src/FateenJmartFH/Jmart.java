@@ -67,7 +67,6 @@ public class Jmart
     }
 
     public static Account akun(){
-        Account akun1 = new Account(10, "Fateen", "FateenNajib@gmail.com", "Fateen1najib");
-        return akun1;
+        return new Account(10, "Fateen", "FateenNajib@gmail.com", "Fateen1najib");
     }
 }

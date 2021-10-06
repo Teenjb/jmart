@@ -14,15 +14,15 @@ public class Filter
     public static ArrayList<PriceTag> filterPriceTag (PriceTag[] list, Double value, boolean less){
         ArrayList<PriceTag> store = new ArrayList<PriceTag>();
         if(less){
-            for(int x=0; x < list.length; x++){
-                if(list[x].getAdjustedPrice() < value){
-                    store.add(list[x]);
+            for (PriceTag priceTag : list) {
+                if (priceTag.getAdjustedPrice() < value) {
+                    store.add(priceTag);
                 }
             }
         }else{
-            for(int x=0; x < list.length; x++){
-                if(list[x].getAdjustedPrice() >= value){
-                    store.add(list[x]);
+            for (PriceTag priceTag : list) {
+                if (priceTag.getAdjustedPrice() >= value) {
+                    store.add(priceTag);
                 }
             }
         }
