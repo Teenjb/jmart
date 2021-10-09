@@ -7,10 +7,25 @@ package FateenJmartFH;
  * @author (your name)
  * @version (a version number or a date)
  */
-public abstract class Recognizable
+public abstract class Recognizable implements Comparable<Recognizable>
 {
     public final int id;
 
+    public static <T> int setClosingId(Class<T> clazz,int id){
+        if(clazz.isAssignableFrom(Recognizable.class)){
+            return 0;
+        }else{
+            return 1;
+        }
+    }
+
+    public static <T> int getClosing(Class<T> clazz, int id){
+        if(clazz.isAssignableFrom(Recognizable.class)){
+            return 0;
+        }else{
+            return 1;
+        }
+    }
 
     protected Recognizable(int id)
     {
@@ -32,4 +47,7 @@ public abstract class Recognizable
         return false;
     }
 
+    public int compareTo(Recognizable check) {
+        return check.id/this.id;
+    }
 }

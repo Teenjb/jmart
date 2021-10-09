@@ -46,10 +46,6 @@ public class Store extends Recognizable implements FileParser
         Matcher matcher = pattern.matcher(this.phoneNumber);
         Pattern pattern1 = Pattern.compile(REGEX_NAME);
         Matcher matcher1 = pattern1.matcher(this.name);
-        if(matcher.find() && matcher1.find()){
-            return true;
-        }else{
-            return false;
-        }
+        return matcher.find() && matcher1.find();
     }
 }
