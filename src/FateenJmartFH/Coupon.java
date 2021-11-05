@@ -7,23 +7,20 @@ package FateenJmartFH;
  * @author fateen
  * @version 1.0
  */
-public class Coupon extends Recognizable implements FileParser
-{
-    
+public class Coupon extends Recognizable {
+
     public final String name;
     public final int code;
     public final double cut;
     public final Type type;
     public final double minimum;
     private boolean used;
-    
-    public static enum Type{
+
+    public static enum Type {
         DISCOUNT, REBATE
     }
 
-    public Coupon(int id, String name, int code, Type type, double cut, double minimum)
-    {
-        super(id);
+    public Coupon(String name, int code, Type type, double cut, double minimum) {
         this.name = name;
         this.code = code;
         this.cut = cut;
@@ -32,29 +29,24 @@ public class Coupon extends Recognizable implements FileParser
         this.used = false;
     }
 
-    public boolean isUsed(){
+    public boolean isUsed() {
         return this.used;
     }
 
-    public boolean canApply(PriceTag priceTag){
-        if(priceTag.getAdjustedPrice() >= this.minimum && !this.used){
+    public boolean canApply(Treasury treasury) {
+        if (treasury.getAdjustedPrice(this.minimum, this.cut) >= this.minimum && !this.used) {
             return true;
         }
         return false;
     }
 
-    public double Apply(PriceTag priceTag){
+    public double Apply(Treasury treasury) {
         this.used = true;
-        switch(type){
+        switch (type) {
             case REBATE:
-                return (priceTag.getAdjustedPrice() - cut);
+                return (treasury.getAdjustedPrice(this.minimum, this.cut) - cut);
             default:
-                return (priceTag.getAdjustedPrice() * (1-(cut/100)));
+                return (treasury.getAdjustedPrice(this.minimum, this.cut) * (1 - (cut / 100)));
         }
-    }
-
-    @Override
-    public boolean read(String content){
-        return false;
     }
 }

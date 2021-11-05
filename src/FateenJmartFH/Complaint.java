@@ -8,28 +8,19 @@ import java.util.Date;
  * @author Fateen najib Indramustika
  * @version 1.0
  */
-public class Complaint extends Recognizable implements FileParser
+public class Complaint extends Recognizable
 {
     public Date date;
     public String desc;
 
-    public Complaint(int id, String desc){
-        super(id);
+    public Complaint(String desc){
         this.desc = desc;
         this.date = new Date();
     }
 
-    @Override
-    public boolean read(String content){
-        return false;
-    }
 
     public boolean validate(){
         return false;
-    }
-
-    public Transactor perform(){
-        return null;
     }
 
     public String toString(){

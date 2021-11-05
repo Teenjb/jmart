@@ -11,7 +11,7 @@ public abstract class Recognizable implements Comparable<Recognizable>
 {
     public final int id;
 
-    public static <T> int setClosingId(Class<T> clazz,int id){
+    public static <T> int setClosingId(Class<T> clazz){
         if(clazz.isAssignableFrom(Recognizable.class)){
             return 0;
         }else{
@@ -27,27 +27,27 @@ public abstract class Recognizable implements Comparable<Recognizable>
         }
     }
 
-    protected Recognizable(int id)
+    protected Recognizable()
     {
-        this.id = id;
+        this.id = 1;
     }
-    public boolean equals(Object check) {
-        if(!(check instanceof Recognizable)){
-            Recognizable checked = (Recognizable)check;
+    public boolean equals(Object other) {
+        if(!(other instanceof Recognizable)){
+            Recognizable checked = (Recognizable)other;
             if(checked.id == this.id){
                 return true;
             }
         }
         return false;
     }
-    public boolean equals(Recognizable check) {
-        if(this.id == check.id){
+    public boolean equals(Recognizable other) {
+        if(this.id == other.id){
             return true;
         }
         return false;
     }
 
-    public int compareTo(Recognizable check) {
-        return check.id/this.id;
+    public int compareTo(Recognizable other) {
+        return other.id/this.id;
     }
 }
