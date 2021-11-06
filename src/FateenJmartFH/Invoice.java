@@ -9,7 +9,7 @@ import java.util.Date;
  * @author (your name)
  * @version (a version number or a date)
  */
-public abstract class Invoice extends Recognizable
+public abstract class Invoice extends Serializable
 {
     public static enum Status{
         WAITING_CONFIRMATION,CANCELED, ON_PROGRESS, ON_DELIVERY, COMPLAINT, FINISHED, FAILED;

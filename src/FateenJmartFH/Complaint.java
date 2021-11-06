@@ -8,7 +8,7 @@ import java.util.Date;
  * @author Fateen najib Indramustika
  * @version 1.0
  */
-public class Complaint extends Recognizable
+public class Complaint extends Serializable
 {
     public Date date;
     public String desc;

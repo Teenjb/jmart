@@ -7,7 +7,7 @@ package FateenJmartFH;
  * @author fateen
  * @version 1.0
  */
-public class Coupon extends Recognizable {
+public class Coupon extends Serializable {
 
     public final String name;
     public final int code;
