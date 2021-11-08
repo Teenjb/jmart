@@ -5,7 +5,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.*;
-
+import java.lang.reflect.Type;
+import com.google.gson.reflect.TypeToken;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.util.Locale;
+import java.util.stream.Collectors;
 
 /**
  * Write a description of class Jmart here.
@@ -16,42 +21,51 @@ import com.google.gson.*;
 public class Jmart
 {
     public static void main(String[] args) {
-//        String filepath = "C:/Users/ASUS/Documents/Fateen/Universitas Indonesia/Teknik Komputer/Semester 3/Pemrograman Berorientasi Objek/Praktikum/Code/Jmart/src/city.json";
-//        Gson gson = new Gson();
-//        try{
-//            BufferedReader br = new BufferedReader(new FileReader(filepath));
-//            Country input = gson.fromJson(br, Country.class);
-//            System.out.println("name : " + input.name);
-//            System.out.println("population : " + input.population);
-//            System.out.println("states : ");
-//            input.listOfStates.forEach(state -> System.out.println(state));
-//        }
-//        catch (IOException e){
-//            e.printStackTrace();
-//        }
         System.out.println("account id" + new Account(null, null, null, -1).id);
         System.out.println("account id" + new Account(null, null, null, -1).id);
         System.out.println("account id" + new Account(null, null, null, -1).id);
         System.out.println("payment id" + new Payment(-1, -1, -1, null).id);
         System.out.println("payment id" + new Payment(-1, -1, -1, null).id);
-        System.out.println("payment id" + new Payment(-1, -1, -1, null).id);    }
-
-    static List<Product> read (String filePath){
-        Gson gson = new Gson();
-        List<Product> Data = new ArrayList<Product>();
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(filePath));
-            Product input = gson.fromJson(br,Product.class);
-            System.out.println(input);
-        }catch (IOException e){
-            e.printStackTrace();
+        System.out.println("payment id" + new Payment(-1, -1, -1, null).id);
+        try{
+            List<Product> list = read("C:/Users/ASUS/Documents/Fateen/Universitas Indonesia/Teknik Komputer/Semester 3/Pemrograman Berorientasi Objek/Praktikum/Code/Jmart/src/randomProductList.json");
+            List<Product> filtered = filterByPrice(list, 1000.0, 20000.0);
+            filtered.forEach(Product -> System.out.println(Product.price));
         }
-        return Data;
+        catch (Throwable t){
+            t.printStackTrace();
+        }
     }
 
-    public static List<Product> filterByCategory (List<Product> list, ProductCategory category){
-        return null;
+    public static List<Product> filterByAccountId (List<Product> list, int accountId, int page, int pageSize){
+        Predicate<Product> predicate = temporary -> (temporary.accountId == accountId);
+        return paginate(list, page, pageSize, predicate);
     }
+
+    public static List<Product> read(String filepath) throws FileNotFoundException {
+        Gson gson = new Gson();
+        Type userListType = new TypeToken<ArrayList<Product>>() {
+        }.getType();
+        BufferedReader br = new BufferedReader(new FileReader(filepath));
+        List<Product> result = gson.fromJson(br, userListType);
+        return result;
+    }
+
+    public static List<Product> filterByCategory(List<Product> list, ProductCategory category) {
+        List<Product> result = new ArrayList<Product>();
+        for (Product prod : list) {
+            if (prod.category.equals(category)) {
+                result.add(prod);
+            }
+        }
+        return result;
+    }
+
+    public static List<Product> filterByName (List<Product> list, String search, int page, int pageSize){
+        Predicate<Product> predicate = temp -> (temp.name.toLowerCase(Locale.ROOT).contains(search.toLowerCase(Locale.ROOT)));
+        return paginate(list, page, pageSize, predicate);
+    }
+
     public static List<Product> filterByPrice (List<Product> list, double minPrice, double maxPrice){
         List<Product> result = new ArrayList<Product>();
         for (Product product : list)
@@ -69,4 +83,10 @@ public class Jmart
         return result;
     }
 
+    private static List<Product> paginate (List<Product> list, int page, int pageSize, Predicate<Product> pred){
+        return list.stream().filter(temp -> pred.predicate(temp)).skip(page * pageSize).limit(pageSize).collect(Collectors.toList());
+    }
+
+
 }
+

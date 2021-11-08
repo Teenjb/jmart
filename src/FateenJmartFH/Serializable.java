@@ -25,8 +25,8 @@ public abstract class Serializable implements Comparable<Serializable>
     protected Serializable() {
         Integer counter = mapCounter.get(getClass());
         if (counter == null){
-            mapCounter.put(getClass(),1);
-            this.id = 1;
+            mapCounter.put(getClass(),0);
+            this.id = 0;
         }else{
             mapCounter.put(getClass(),counter + 1);
             this.id = counter+1;
