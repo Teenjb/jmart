@@ -21,21 +21,19 @@ import java.util.stream.Collectors;
 public class Jmart
 {
     public static void main(String[] args) {
-        System.out.println("account id" + new Account(null, null, null, -1).id);
-        System.out.println("account id" + new Account(null, null, null, -1).id);
-        System.out.println("account id" + new Account(null, null, null, -1).id);
-        System.out.println("payment id" + new Payment(-1, -1, -1, null).id);
-        System.out.println("payment id" + new Payment(-1, -1, -1, null).id);
-        System.out.println("payment id" + new Payment(-1, -1, -1, null).id);
+        String filepath = "C:\\Users\\ASUS\\Documents\\Fateen\\Universitas Indonesia\\Teknik Komputer\\Semester 3\\Pemrograman Berorientasi Objek\\Praktikum\\Code\\Jmart\\src\\FateenJmartFH\\Account.Json";
         try{
-            List<Product> list = read("C:/Users/ASUS/Documents/Fateen/Universitas Indonesia/Teknik Komputer/Semester 3/Pemrograman Berorientasi Objek/Praktikum/Code/Jmart/src/randomProductList.json");
-            List<Product> filtered = filterByPrice(list, 1000.0, 20000.0);
-            filtered.forEach(Product -> System.out.println(Product.price));
-        }
-        catch (Throwable t){
+            JsonTable<Account> tableAccount = new JsonTable<>(Account.class, filepath);
+            tableAccount.add(new Account("name","email","password"));
+            tableAccount.writeJson();
+
+            tableAccount = new JsonTable<>(Account.class,filepath);
+            tableAccount.forEach(account -> System.out.println(account.toString()));
+        }catch (Throwable t){
             t.printStackTrace();
         }
     }
+
 
     public static List<Product> filterByAccountId (List<Product> list, int accountId, int page, int pageSize){
         Predicate<Product> predicate = temporary -> (temporary.accountId == accountId);
@@ -66,21 +64,14 @@ public class Jmart
         return paginate(list, page, pageSize, predicate);
     }
 
-    public static List<Product> filterByPrice (List<Product> list, double minPrice, double maxPrice){
-        List<Product> result = new ArrayList<Product>();
-        for (Product product : list)
-        {
-            if (minPrice <= 0.0 && product.price < minPrice)
-            {
-                continue;
-            }
-            if (maxPrice <= 0.0 && product.price > maxPrice)
-            {
-                continue;
-            }
-            result.add(product);
+    public static List<Product> filterByPrice(List<Product> list, double minPrice, double maxPrice) {
+        if (minPrice <= 0) {
+            return Algorithm.<Product>collect(list, prod -> prod.price <= maxPrice);
         }
-        return result;
+        else if (maxPrice <= 0) {
+            return Algorithm.<Product>collect(list, prod -> prod.price >= minPrice);
+        }
+        return Algorithm.<Product>collect(list, prod -> prod.price <= maxPrice && prod.price >= minPrice);
     }
 
     private static List<Product> paginate (List<Product> list, int page, int pageSize, Predicate<Product> pred){

@@ -12,7 +12,7 @@ import java.util.HashMap;
 public abstract class Serializable implements Comparable<Serializable>
 {
     public final int id;
-    private static HashMap<Class<?>, Integer> mapCounter = new HashMap();
+    private static HashMap<Class<?>, Integer> mapCounter = new HashMap<>();
 
     public static <T> int setClosingId(Class<T> clazz){
         return 0;
@@ -33,16 +33,25 @@ public abstract class Serializable implements Comparable<Serializable>
         }
     }
     public boolean equals(Object other) {
-        if(!(other instanceof Serializable)){
-            return ((Serializable)other).id == this.id;
-        }
-        return false;
+        return (other instanceof Serializable) && ((Serializable) other).id == id;
     }
+
     public boolean equals(Serializable other) {
         return this.id == other.id;
     }
 
+    @Override
     public int compareTo(Serializable other) {
-        return other.id/this.id;
+        return Integer.compare(this.id, other.id);
+    }
+
+    public static <T> Integer setClosingId(Class<T> clazz, int id)
+    {
+        return mapCounter.put(clazz, id);
+    }
+
+    public static <T> Integer getClosingId(Class<T> clazz)
+    {
+        return mapCounter.get(clazz);
     }
 }

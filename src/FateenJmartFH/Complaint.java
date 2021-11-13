@@ -26,6 +26,11 @@ public class Complaint extends Serializable
     public String toString(){
         SimpleDateFormat SDformat = new SimpleDateFormat("dd/MM/yyyy");
         String formatDate = SDformat.format(this.date);
-        return "{date = " + formatDate + "desc = '" + this.desc + "'}";
+        return "{date = " + formatDate + ", desc = '" + this.desc + "'}";
+    }
+
+    public static void main(String[] args) {
+        Complaint comp = new Complaint("lucuu");
+        System.out.println(comp.toString());
     }
 }
