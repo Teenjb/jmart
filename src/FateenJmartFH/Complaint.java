@@ -29,8 +29,4 @@ public class Complaint extends Serializable
         return "{date = " + formatDate + ", desc = '" + this.desc + "'}";
     }
 
-    public static void main(String[] args) {
-        Complaint comp = new Complaint("lucuu");
-        System.out.println(comp.toString());
-    }
 }

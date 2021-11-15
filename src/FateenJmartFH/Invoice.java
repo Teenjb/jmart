@@ -19,28 +19,19 @@ public abstract class Invoice extends Serializable
         NONE,BAD,NEUTRAL,GOOD;
     }
 
-    public class Record{
-        public Status status;
-        public Date date;
-        public String message;
-    }
-
     public final Date date;
     public int buyerId;
     public int productId;
     public int complaintId;
     public Rating rating;
-    public Status status;
-    public ArrayList<Record> history;
 
     protected Invoice(int buyerId, int productId){
         this.buyerId = buyerId;
         this.productId = productId;
         this.date = new Date();
-        this.complaintId = 1;
+        this.complaintId = -1;
         this.rating = Rating.NONE;
-        this.status = Status.WAITING_CONFIRMATION;
     }
 
-    public abstract double getTotalPay();
+    public abstract double getTotalPay(Product product);
 }

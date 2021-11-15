@@ -1,10 +1,7 @@
 package FateenJmartFH;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Algorithm {
     private Algorithm() {
@@ -282,7 +279,7 @@ public class Algorithm {
         T minimum = null;
         while(iterator.hasNext()) {
             if(comparator.compare(iterator.next(), minimum)>= 0) {
-
+                minimum = iterator.next();
             }
         }
         return minimum;
@@ -349,5 +346,51 @@ public class Algorithm {
             }
         }
         return list;
+    }
+
+    public static <T> List<T> paginate(T[] array, int page, int pageSize, Predicate<T> pred){
+        return Arrays.stream(array).filter(pred::predicate).skip(pageSize*page).limit(pageSize).collect(Collectors.toList());
+    }
+
+    public static <T> List<T> paginate(Iterable<T> iterable, int page, int pageSize, Predicate<T> pred){
+        List<T> list = new ArrayList<T>();
+        int counter = 0, counterPrint = 0;
+        int size = pageSize * page;
+        for (T each : iterable){
+            if (counter < size && pred.predicate(each)){
+                counter++;
+                continue;
+            }
+            if (counterPrint < pageSize && pred.predicate(each)){
+                list.add(each);
+                counterPrint++;
+            }else{
+                break;
+            }
+        }
+        return list;
+    }
+
+    public static <T> List<T> paginate(Iterator<T> iterator, int page, int pageSize, Predicate<T> pred) {
+        int iteration = 0;
+        int occurences = 0;
+        int startingIdx = page * pageSize;
+        List<T> pageList = new ArrayList<>(pageSize);
+
+        List<T> array = new ArrayList<T>();
+
+        iterator.forEachRemaining(array::add);
+
+        for (; iteration < array.size() && occurences < startingIdx; ++iteration) {
+            if (pred.predicate(array.get(iteration))) {
+                ++occurences;
+            }
+        }
+        for (int i = 0; i < array.size() && pageList.size() < pageSize; ++i) {
+            if (pred.predicate(array.get(iteration))) {
+                pageList.add(array.get(iteration));
+            }
+        }
+        return pageList;
     }
 }
