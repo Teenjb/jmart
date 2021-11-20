@@ -1,46 +1,55 @@
 package com.FateenJmartFH;
 
-import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
-
 import java.io.*;
 import java.lang.reflect.Array;
 import java.util.Collections;
 import java.util.Vector;
 
-public class JsonTable<T> extends Vector {
-    public final String filepath;
+import com.google.gson.*;
+import com.google.gson.stream.JsonReader;
+
+public class JsonTable<T> extends Vector<T>
+{
     private static final Gson gson = new Gson();
+    public final String filepath;
 
-    public JsonTable(Class<T> clazz, String filepath) throws IOException {
+    @SuppressWarnings("unchecked")
+    public JsonTable(Class<T> clazz, String filepath) throws IOException
+    {
         this.filepath = filepath;
-
-        @SuppressWarnings("unchecked")
-        Class<T[]> array = (Class<T[]>) Array.newInstance(clazz, 0).getClass();
-
-        T[] result = JsonTable.readJson(array, this.filepath);
-        Collections.addAll(this, result);
-    }
-
-    public static <T> T readJson(Class<T> clazz, String filepath) throws FileNotFoundException {
-        T readerJson = null;
-        try {
-            final JsonReader readJson = new JsonReader(new FileReader(filepath));
-            readerJson = gson.fromJson(readJson, clazz);
-        } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
+        try
+        {
+            Class<T[]> arrayType = (Class<T[]>) Array.newInstance(clazz, 0).getClass();
+            T[] loaded = readJson(arrayType, filepath);
+            if (loaded != null)
+                Collections.addAll(this, loaded);
         }
-        return readerJson;
+        catch (FileNotFoundException e)
+        {
+            File file = new File(filepath);
+            File parent = file.getParentFile();
+            if (parent != null)
+                parent.mkdirs();
+            file.createNewFile();
+        }
     }
 
-    public void writeJson() throws IOException {
+    public void writeJson() throws IOException
+    {
         writeJson(this, this.filepath);
     }
 
-    public static void writeJson(Object object, String filepath) throws IOException {
-        final FileWriter fileWriter = new FileWriter(filepath);
-        fileWriter.write(gson.toJson(object));
-        fileWriter.close();
+    public static void writeJson(Object object, String filepath) throws IOException
+    {
+        final FileWriter writer = new FileWriter(filepath);
+        writer.write(gson.toJson(object));
+        writer.close();
+    }
+
+    public static <T> T readJson(Class<T> clazz, String filepath) throws FileNotFoundException
+    {
+        final JsonReader reader = new JsonReader(new FileReader(filepath));
+        return gson.fromJson(reader, clazz);
     }
 }
 

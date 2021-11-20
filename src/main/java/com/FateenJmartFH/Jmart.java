@@ -6,17 +6,18 @@ package com.FateenJmartFH;
  * @author Fateen Najib Indramustika
  * @version (a version number or a date)
  */
+import com.FateenJmartFH.dbjson.JsonDBEngine;
 import com.google.gson.*;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-import com.google.gson.*;
-import com.google.gson.reflect.TypeToken;
+//import java.io.BufferedReader;
+//import java.io.FileNotFoundException;
+//import java.io.FileReader;
+//import java.io.IOException;
+//import java.lang.reflect.Type;
+//import java.util.ArrayList;
+//import java.util.List;
+//import java.util.stream.Collectors;
+//import com.google.gson.*;
+//import com.google.gson.reflect.TypeToken;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -30,9 +31,11 @@ class Jmart
     private static Object Payment;
 
     public static void main (String[] args){
+        JsonDBEngine.Run(Jmart.class);
         SpringApplication.run(Jmart.class, args);
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> JsonDBEngine.join()));
 //        try{
-//            JsonTable<Payment> table = new JsonTable<>(Payment.class,"C:\\Users\\ASUS\\Documents\\Fateen\\Universitas Indonesia\\Teknik Komputer\\Semester 3\\Pemrograman Berorientasi Objek\\Praktikum\\Code\\Jmart\\src\\randomPaymentList.json");
+//            JsonTable<Payment> table = new JsonTable<>(Payment.class,"C:\\Users\\ASUS\\Documents\\Fateen\\Universitas Indonesia\\Teknik Komputer\\Semester 3\\Pemrograman Berorientasi Objek\\Praktikum\\source\\randomPaymentList.json");
 //            ObjectPoolThread<Payment> paymentPool = new ObjectPoolThread<Payment>("Thread-PP", Jmart::paymentTimekeeper);
 //            paymentPool.start();
 //            table.forEach(payment -> paymentPool.add((Payment) Payment));

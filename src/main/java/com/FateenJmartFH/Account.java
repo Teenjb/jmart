@@ -17,6 +17,7 @@ public class Account extends Serializable
     public String name;
     public String email;
     public String password;
+    public Store store;
     
     
     public Account(String name, String email, String password, double balance)

@@ -185,7 +185,7 @@ public class Algorithm {
         T maximum = null;
         while(iterator.hasNext()) {
             if(comparator.compare(iterator.next(), maximum)>= 0) {
-
+                maximum = iterator.next();
             }
         }
         return maximum;
