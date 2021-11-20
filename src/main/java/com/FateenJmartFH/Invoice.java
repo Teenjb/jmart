@@ -1,6 +1,7 @@
 package com.FateenJmartFH;
 
-import java.util.ArrayList;
+import com.FateenJmartFH.dbjson.Serializable;
+
 import java.util.Date;
 
 /**

@@ -1,4 +1,6 @@
 package com.FateenJmartFH;
+import com.FateenJmartFH.dbjson.Serializable;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 

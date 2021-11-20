@@ -1,15 +1,13 @@
 package com.FateenJmartFH.controller;
 import com.FateenJmartFH.Account;
-import com.FateenJmartFH.JsonTable;
-import com.FateenJmartFH.Serializable;
+import com.FateenJmartFH.dbjson.JsonTable;
+import com.FateenJmartFH.dbjson.Serializable;
 import com.FateenJmartFH.Store;
 import com.FateenJmartFH.dbjson.JsonAutowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.regex.Pattern;
-
-import static org.apache.logging.log4j.util.Strings.isBlank;
 
 @RestController
 @RequestMapping("/account")
@@ -44,11 +42,16 @@ public class AccountController implements BasicGetController {
                     @RequestParam String password
             )
     {
-        if(!isBlank(name) || !REGEX_PATTERN_EMAIL.matcher(email).find() || !REGEX_PATTERN_PASSWORD.matcher(password).find() || !accountTable.stream().anyMatch(account -> account.email.equals(email))){
-            return null;
-        }else{
-            return new Account(name, email, password, 0);
+
+        boolean hasilEmail = REGEX_PATTERN_EMAIL.matcher(email).find();
+        boolean hasilPassword = REGEX_PATTERN_PASSWORD.matcher(password).find();
+        if(!name.isBlank() || hasilEmail || hasilPassword ||
+                accountTable.stream().anyMatch(account -> account.email.equals(email))){
+            Account account =  new Account(name, email, password, 0);
+            accountTable.add(account);
+            return account;
         }
+        return null;
     }
 
     @PostMapping("/{id}/registerStore")

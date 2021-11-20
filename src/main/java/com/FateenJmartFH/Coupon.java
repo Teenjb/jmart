@@ -1,6 +1,8 @@
 package com.FateenJmartFH;
 
 
+import com.FateenJmartFH.dbjson.Serializable;
+
 /**
  * Class to access coupon
  * 

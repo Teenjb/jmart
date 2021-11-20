@@ -1,6 +1,8 @@
 package com.FateenJmartFH;
 
- 
+
+import com.FateenJmartFH.dbjson.Serializable;
+
 /**
  * Write a description of class Product here.
  *

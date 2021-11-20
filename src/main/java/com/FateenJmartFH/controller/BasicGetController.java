@@ -1,9 +1,8 @@
 package com.FateenJmartFH.controller;
 
-import com.FateenJmartFH.JsonTable;
-import com.FateenJmartFH.Serializable;
+import com.FateenJmartFH.dbjson.JsonTable;
+import com.FateenJmartFH.dbjson.Serializable;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;

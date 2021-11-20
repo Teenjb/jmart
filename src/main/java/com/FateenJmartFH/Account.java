@@ -1,5 +1,7 @@
 package com.FateenJmartFH;
 
+import com.FateenJmartFH.dbjson.Serializable;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -33,7 +35,7 @@ public class Account extends Serializable
         Pattern pattern = Pattern.compile(REGEX_EMAIL);
         Matcher matcher = pattern.matcher(this.email);
         Pattern pattern1 = Pattern.compile(REGEX_PASSWORD);
-        Matcher matcher1 = pattern1.matcher(this.password );
+        Matcher matcher1 = pattern1.matcher(this.password);
         return matcher.find() && matcher1.find();
     }
 }

@@ -7,15 +7,13 @@ import java.util.HashMap;
 
 import javax.annotation.PreDestroy;
 
-import com.FateenJmartFH.JsonTable;
-import com.FateenJmartFH.Serializable;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
 
 
 /** 
- * Handle load and store for {@link com.FateenJmartFH.JsonTable}
+ * Handle load and store for {@link JsonTable}
  * @author Netlab Team
  * @version 0.1
  */

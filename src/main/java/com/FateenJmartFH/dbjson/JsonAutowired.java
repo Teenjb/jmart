@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation for {@link JsonDBEngine} to automatically load a {@link com.FateenJmartFH.JsonTable}.
+ * Annotation for {@link JsonDBEngine} to automatically load a {@link JsonTable}.
  * A reference to this must be a static field type.
  * @author Netlab Team
  * @version 0.1

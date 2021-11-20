@@ -1,4 +1,4 @@
-package com.FateenJmartFH;
+package com.FateenJmartFH.dbjson;
 
 
 import java.util.HashMap;
@@ -9,9 +9,6 @@ import java.util.HashMap;
  * @author (your name)
  * @version (a version number or a date)
  */
-import java.util.HashMap;
-
-import java.util.HashMap;
 
 public class Serializable implements Comparable<Serializable>
 {

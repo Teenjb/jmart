@@ -1,5 +1,7 @@
 package com.FateenJmartFH;
 
+import com.FateenJmartFH.dbjson.Serializable;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

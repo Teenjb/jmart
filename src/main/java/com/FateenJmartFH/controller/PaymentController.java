@@ -1,6 +1,6 @@
 package com.FateenJmartFH.controller;
 import com.FateenJmartFH.Invoice;
-import com.FateenJmartFH.JsonTable;
+import com.FateenJmartFH.dbjson.JsonTable;
 import com.FateenJmartFH.ObjectPoolThread;
 import com.FateenJmartFH.Payment;
 import com.FateenJmartFH.dbjson.JsonAutowired;
