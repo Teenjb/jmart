@@ -35,11 +35,13 @@ public class Coupon extends Serializable {
         return this.used;
     }
 
-    public boolean canApply(Treasury treasury) {
-        if (treasury.getAdjustedPrice(this.minimum, this.cut) >= this.minimum && !this.used) {
+    public boolean canApply(double price, double discount){
+        if (Treasury.getAdjustedPrice(price, discount) >= minimum && !used){
             return true;
         }
-        return false;
+        else{
+            return false;
+        }
     }
 
     public double Apply(Treasury treasury) {
