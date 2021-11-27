@@ -49,7 +49,6 @@ public class CouponController implements BasicGetController<Coupon> {
         return Algorithm.paginate(couponTable, page, pageSize, pred -> !pred.isUsed());
     }
 
-
     @Override
     public JsonTable<Coupon> getJsonTable() {
         return couponTable;

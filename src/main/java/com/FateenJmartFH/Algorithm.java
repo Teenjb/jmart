@@ -67,32 +67,57 @@ public class Algorithm {
     }
 
     public static <T> T find(T[] array, T value) {
-        final Iterator<T> var = Arrays.stream(array).iterator();
-        return find(var, value);
+        for(T i : array){
+            if(i == value){
+                return i;
+            }
+        }
+        return null;
     }
 
     public static <T> T find(Iterable<T> iterable, T value) {
-        final Iterator <T> var = iterable.iterator();
-        return find(var, value);
+        for(T i : iterable){
+            if(i == value){
+                return i;
+            }
+        }
+        return null;
     }
 
     public static <T> T find(Iterator<T> iterator, T value) {
-        final Predicate <T> var = value::equals;
-        return find(iterator, var);
+        while (iterator.hasNext()){
+            if(iterator.next() == value){
+                return iterator.next();
+            }
+        }
+        return null;
     }
 
     public static <T> T find(T[] array, Predicate<T> pred) {
-        final Iterator<T> var = Arrays.stream(array).iterator();
-        return find(var, pred);
+        for(T i : array){
+            if(pred.predicate(i)){
+                return i;
+            }
+        }
+        return null;
     }
 
     public static <T> T find(Iterable<T> iterable, Predicate<T> pred) {
-        final Iterator <T> var = iterable.iterator();
-        return find(var, pred);
+        for(T i : iterable){
+            if(pred.predicate(i)){
+                return i;
+            }
+        }
+        return null;
     }
 
     public static <T> T find(Iterator<T> iterator, Predicate<T> pred) {
-        return find(iterator, pred);
+        while (iterator.hasNext()){
+            if(pred.predicate(iterator.next())){
+                return iterator.next();
+            }
+        }
+        return null;
     }
 
     public static <T extends Comparable<? super T>> T max(T first, T  second) {

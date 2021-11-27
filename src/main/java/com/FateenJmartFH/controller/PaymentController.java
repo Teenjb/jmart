@@ -1,11 +1,10 @@
 package com.FateenJmartFH.controller;
-import com.FateenJmartFH.Invoice;
+import com.FateenJmartFH.*;
 import com.FateenJmartFH.dbjson.JsonTable;
-import com.FateenJmartFH.ObjectPoolThread;
-import com.FateenJmartFH.Payment;
 import com.FateenJmartFH.dbjson.JsonAutowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -25,23 +24,83 @@ public class PaymentController implements BasicGetController<Payment> {
         return paymentTable;
     }
 
-    @PostMapping("/{id}/accept")
-    public boolean accept(int id) {
+    @PostMapping(" /{id}/accept ")
+    boolean accept
+            (
+                    @RequestParam int id
+            )
+    {
+        for(Payment each : paymentTable){
+            if(each.id == id){
+                if(each.history.get(each.history.size()-1).status == Invoice.Status.WAITING_CONFIRMATION){
+                    each.history.add(new Payment.Record(Invoice.Status.ON_PROGRESS, null));
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
     @PostMapping("/{id}/cancel")
     public boolean cancel(int id) {
+        for (Payment iterate : paymentTable) {
+            if (iterate.id == id) {
+                if (iterate.history.get(iterate.history.size() - 1).status == Invoice.Status.WAITING_CONFIRMATION) {
+                    iterate.history.add(new Payment.Record(Invoice.Status.CANCELED, null));
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
     @PostMapping("/create")
-    public Payment create(int buyerId, int productId, int productCount, String shipmentAddress, byte shipmentPlan) {
+    public Payment create
+            (
+                    @RequestParam int buyerId,
+                    @RequestParam int productId,
+                    @RequestParam int productCount,
+                    @RequestParam String shipmentAddress,
+                    @RequestParam byte shipmentPlan
+            )
+    {
+        for (Account account : AccountController.accountTable){
+            for (Product product : ProductController.productTable){
+                if(account.id == buyerId && product.id == productId){
+                    Payment payment = new Payment(buyerId,productId,productCount,new Shipment(shipmentAddress,0,shipmentPlan,null));
+                    if(payment.getTotalPay(product) > account.balance){
+                        return null;
+                    }else {
+                        account.balance -= payment.getTotalPay(product);
+                        paymentTable.add(payment);
+                        return payment;
+                    }
+                }else {
+                    return null;
+                }
+            }
+        }
         return null;
     }
 
-    @PostMapping("/submit")
-    public boolean submit(int id, String receipt) {
+    @PostMapping(" /{id}/submit ")
+    boolean submit
+            (
+                    @RequestParam int id,
+                    @RequestParam String receipt
+            )
+    {
+        for(Payment each : paymentTable){
+            if(each.id == id){
+                if(each.history.get(each.history.size()-1).status == Invoice.Status.ON_PROGRESS){
+                    if(!receipt.isBlank()){
+                        each.shipment.receipt = receipt;
+                        each.history.add(new Payment.Record(Invoice.Status.ON_DELIVERY, null));
+                        return true;
+                    }
+                }
+            }
+        }
         return false;
     }
 

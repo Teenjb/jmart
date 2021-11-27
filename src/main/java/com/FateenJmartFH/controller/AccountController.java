@@ -27,19 +27,20 @@ public class AccountController implements BasicGetController<Account>{
                     @RequestParam String password
             )
     {
-        for (Account data : accountTable){
-            try{
-                MessageDigest md = MessageDigest.getInstance("MD5");
-                md.update(password.getBytes());
-                byte[] bytes = md.digest();
-                StringBuilder sb = new StringBuilder();
-                for(int i = 0; i < bytes.length; i++){
-                    sb.append(Integer.toString((bytes[i] & 0xff) + 0x100,16).substring(1));
-                }
-                password = sb.toString();
-            }catch (NoSuchAlgorithmException e){
-                e.printStackTrace();
+        try{
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(password.getBytes());
+            byte[] bytes = md.digest();
+            StringBuilder sb = new StringBuilder();
+            for(int i = 0; i < bytes.length; i++){
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100,16).substring(1));
             }
+            password = sb.toString();
+        }catch (NoSuchAlgorithmException e){
+            e.printStackTrace();
+        }
+        for (Account data : accountTable){
+
             if(data.email.equals(email) && data.password.equals(password)){
                 return data;
             }
@@ -70,8 +71,7 @@ public class AccountController implements BasicGetController<Account>{
         }catch (NoSuchAlgorithmException e){
             e.printStackTrace();
         }
-        if(!name.isBlank() || hasilEmail || hasilPassword ||
-                accountTable.stream().anyMatch(account -> account.email.equals(email))){
+        if(!name.isBlank() && hasilEmail && hasilPassword && !accountTable.stream().anyMatch(account -> account.email.equals(email))){
             Account account =  new Account(name, email, password, 0);
             accountTable.add(account);
             return account;
@@ -114,13 +114,14 @@ public class AccountController implements BasicGetController<Account>{
     }
 
     @Override
-    public Account getById(int id) {
+    @GetMapping("/{id}")
+    public Account getById(@PathVariable int id) {
         return BasicGetController.super.getById(id);
     }
 
     @Override
     public JsonTable getJsonTable() {
-        return null;
+        return accountTable;
     }
 
     @Override
