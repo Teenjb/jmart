@@ -1,24 +1,24 @@
 package com.FateenJmartFH.controller;
 
+import com.FateenJmartFH.Account;
 import com.FateenJmartFH.Algorithm;
 import com.FateenJmartFH.Product;
 import com.FateenJmartFH.ProductCategory;
 import com.FateenJmartFH.dbjson.JsonAutowired;
 import com.FateenJmartFH.dbjson.JsonTable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
+@RestController
 @RequestMapping("/product")
 public class ProductController implements BasicGetController<Product>{
     @JsonAutowired(value = Product.class, filepath = "product.json")
     public static JsonTable<Product> productTable;
 
-    @PostMapping("/{id}/create")
+    @PostMapping("/create")
     Product create
             (
                     @RequestParam int accountId,
@@ -31,8 +31,8 @@ public class ProductController implements BasicGetController<Product>{
                     @RequestParam byte shipmentPlans
             )
     {
-        for(Product each : productTable) {
-            if (each.accountId == accountId){
+        for(Account each : AccountController.accountTable) {
+            if (each.id == accountId && each.store != null){
                 Product product =  new Product(accountId, name, weight, conditionUsed, price, discount, category, shipmentPlans);
                 productTable.add(product);
                 return product;
@@ -74,7 +74,8 @@ public class ProductController implements BasicGetController<Product>{
         return tempProduct;
     }
     @Override
-    public Product getById(int id) {
+    @GetMapping("/{id}")
+    public Product getById(@PathVariable int id) {
         return BasicGetController.super.getById(id);
     }
 

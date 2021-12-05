@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 @RequestMapping("/account")
 public class AccountController implements BasicGetController<Account>{
     public static final String REGEX_EMAIL = "^\\w+([\\.&`~-]?\\w+)*@\\w+([\\.-]?\\w+)+$";
-    public static final String REGEX_PASSWORD = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d][^-\\s]{8,}$";
+    public static final String REGEX_PASSWORD = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d][^-\\s]{7,}$";
     public static final Pattern REGEX_PATTERN_EMAIL = Pattern.compile(REGEX_EMAIL);
     public static final Pattern REGEX_PATTERN_PASSWORD = Pattern.compile(REGEX_PASSWORD);
     @JsonAutowired(value = Account.class,filepath = "akun.json")
@@ -97,10 +97,10 @@ public class AccountController implements BasicGetController<Account>{
         return null;
     }
 
-    @PostMapping("/{id}/topUp")
+    @PostMapping("/{id}/topup")
     boolean topUp
             (
-                    @RequestParam int id,
+                    @PathVariable int id,
                     @RequestParam double balance
             )
     {
