@@ -3,6 +3,11 @@ package com.FateenJmartFH;
 import java.util.Vector;
 import java.util.function.Function;
 
+/**
+ * Object Pool Thread is a pool of thread that will be running
+ * @param <T> generic of any class could be run as a thread
+ */
+
 public class ObjectPoolThread<T> extends Thread{
     private boolean exitSignal = false;
     private Vector<T> objectPool = new Vector<T>();

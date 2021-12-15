@@ -2,10 +2,10 @@ package com.FateenJmartFH;
 
 
 /**
- * Write a description of class ProductRating here.
+ * Product rating is storing rate of a product
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Fateen Najib Indramustika
+ * @version 1.0
  */
 public class ProductRating
 {

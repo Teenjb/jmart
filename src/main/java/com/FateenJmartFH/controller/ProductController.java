@@ -8,9 +8,15 @@ import com.FateenJmartFH.dbjson.JsonAutowired;
 import com.FateenJmartFH.dbjson.JsonTable;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Array;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * Product Controller is used to handle product class
+ * @author Fateen Najib Indramustika
+ */
 
 @RestController
 @RequestMapping("/product")
@@ -59,19 +65,17 @@ public class ProductController implements BasicGetController<Product>{
                     @RequestParam String search,
                     @RequestParam int minPrice,
                     @RequestParam int maxPrice,
-                    @RequestParam ProductCategory category
+                    @RequestParam ProductCategory category,
+                    @RequestParam boolean conditionUsed
             )
     {
-        List<Product> tempProduct = new ArrayList<Product>();
-        for (Product each : productTable) {
-            if (each.accountId == accountId)
-                if (each.name.contains(search))
-                    if (minPrice <= each.price)
-                        if (maxPrice >= each.price)
-                            if (each.category == category)
-                                tempProduct.add(each);
+        ArrayList<Product> filtered = new ArrayList<Product>();
+        for(Product item : productTable){
+            if(item.name.contains(search) && item.price <= maxPrice && item.price >= minPrice && item.category == category && item.conditionUsed == conditionUsed){
+                filtered.add(item);
+            }
         }
-        return tempProduct;
+        return Algorithm.<Product>paginate(filtered,page, pageSize, e -> {return true;});
     }
     @Override
     @GetMapping("/{id}")

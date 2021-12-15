@@ -4,9 +4,9 @@ package com.FateenJmartFH;
 import com.FateenJmartFH.dbjson.Serializable;
 
 /**
- * Class to access coupon
+ * Class to store coupon information and could be used when someone has a payment.
  * 
- * @author fateen
+ * @author Fateen Najib Indramustika
  * @version 1.0
  */
 public class Coupon extends Serializable {

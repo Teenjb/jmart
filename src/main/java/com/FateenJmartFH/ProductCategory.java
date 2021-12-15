@@ -2,10 +2,10 @@ package com.FateenJmartFH;
 
 
 /**
- * Enumeration class ProductCategory - write a description of the enum class here
+ * Enumeration class ProductCategory - describe type of product
  *
- * @author (your name here)
- * @version (version number or date here)
+ * @author Fateen Najib Indramustika
+ * @version 1.0
  */
 public enum ProductCategory
 {

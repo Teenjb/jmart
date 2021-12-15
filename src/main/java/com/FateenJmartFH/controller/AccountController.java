@@ -10,6 +10,14 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.regex.Pattern;
 
+/**
+ * The controller for any request with account class and implements BasicGetController.
+ * this controller using rest controller to communicate
+ *
+ * @author Fateen Najib Indramutsika
+ * @version 1.0
+ */
+
 @RestController
 @RequestMapping("/account")
 public class AccountController implements BasicGetController<Account>{
@@ -19,6 +27,13 @@ public class AccountController implements BasicGetController<Account>{
     public static final Pattern REGEX_PATTERN_PASSWORD = Pattern.compile(REGEX_PASSWORD);
     @JsonAutowired(value = Account.class,filepath = "akun.json")
     public static JsonTable<Account> accountTable;
+
+    /**
+     * This is /login controller to check the account validation
+     * @param email passed from string request to check email on server data
+     * @param password passed form string request to check pass on server data
+     * @return Account class that store all public variable
+     */
 
     @PostMapping("/login")
     Account login
@@ -48,6 +63,13 @@ public class AccountController implements BasicGetController<Account>{
         return null;
     }
 
+    /**
+     * This is /Register controller to register an account
+     * @param name pass name from string request to fill name parameter
+     * @param email pass email from string request to fill email parameter
+     * @param password pass password from string request to fill password parameter
+     * @return Account class contains all public variable
+     */
     @PostMapping("/register")
     Account register
             (
@@ -79,6 +101,14 @@ public class AccountController implements BasicGetController<Account>{
         return null;
     }
 
+    /**
+     *
+     * @param id account id to identify whose account are requesting
+     * @param name pass name from string request to fill name parameter
+     * @param address pass address from string request to fill address parameter
+     * @param phoneNumber pass phone number from string request to fill phone number parameter
+     * @return Store class contains all
+     */
     @PostMapping("/{id}/registerStore")
     Store register
             (
@@ -98,7 +128,7 @@ public class AccountController implements BasicGetController<Account>{
     }
 
     @PostMapping("/{id}/topup")
-    boolean topUp
+    Boolean topUp
             (
                     @PathVariable int id,
                     @RequestParam double balance

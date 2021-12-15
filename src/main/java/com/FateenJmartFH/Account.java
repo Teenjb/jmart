@@ -6,7 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Class for store account data
+ * Class as an account that store every data related to account information
  *
  * @author Fateen Najib Indramutsika
  * @version 1.0

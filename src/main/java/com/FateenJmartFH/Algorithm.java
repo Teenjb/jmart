@@ -3,6 +3,11 @@ package com.FateenJmartFH;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Algorithm is a class that have many type of logic and algorithm
+ * @author Fateen Najib Indramustika
+ */
+
 public class Algorithm {
     private Algorithm() {
 

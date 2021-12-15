@@ -2,10 +2,14 @@ package com.FateenJmartFH.controller;
 import com.FateenJmartFH.*;
 import com.FateenJmartFH.dbjson.JsonTable;
 import com.FateenJmartFH.dbjson.JsonAutowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+/**
+ * Payment controller is used to handle request Payment class
+ * @author Fateen Najib Indramustika
+ */
 
 @RestController
 @RequestMapping("/payment")
@@ -24,10 +28,20 @@ public class PaymentController implements BasicGetController<Payment> {
         return paymentTable;
     }
 
-    @PostMapping(" /{id}/accept ")
-    boolean accept
+    @Override
+    public Payment getById(int id) {
+        return BasicGetController.super.getById(id);
+    }
+
+    @Override
+    public List<Payment> getPage(int page, int pageSize) {
+        return BasicGetController.super.getPage(page, pageSize);
+    }
+
+    @PostMapping("/{id}/accept")
+    public boolean accept
             (
-                    @RequestParam int id
+                    @PathVariable Integer id
             )
     {
         for(Payment each : paymentTable){
@@ -42,17 +56,21 @@ public class PaymentController implements BasicGetController<Payment> {
     }
 
     @PostMapping("/{id}/cancel")
-    public boolean cancel(int id) {
+    public boolean cancel(
+           @PathVariable int id
+        )
+    {
         for (Payment iterate : paymentTable) {
             if (iterate.id == id) {
                 if (iterate.history.get(iterate.history.size() - 1).status == Invoice.Status.WAITING_CONFIRMATION) {
-                    iterate.history.add(new Payment.Record(Invoice.Status.CANCELED, null));
+                    iterate.history.add(new Payment.Record(Invoice.Status.CANCELLED, null));
                     return true;
                 }
             }
         }
         return false;
     }
+
 
     @PostMapping("/create")
     public Payment create
@@ -64,29 +82,27 @@ public class PaymentController implements BasicGetController<Payment> {
                     @RequestParam byte shipmentPlan
             )
     {
-        for (Account account : AccountController.accountTable){
-            for (Product product : ProductController.productTable){
-                if(account.id == buyerId && product.id == productId){
-                    Payment payment = new Payment(buyerId,productId,productCount,new Shipment(shipmentAddress,0,shipmentPlan,null));
-                    if(payment.getTotalPay(product) > account.balance){
-                        return null;
-                    }else {
-                        account.balance -= payment.getTotalPay(product);
-                        paymentTable.add(payment);
-                        return payment;
-                    }
-                }else {
-                    return null;
-                }
+        Product product1 = Algorithm.<Product>find(ProductController.productTable,e -> e.id == productId);
+        Account account1 = Algorithm.<Account>find(AccountController.accountTable,e -> e.id == buyerId);
+        if(product1 != null && account1 != null ){
+            Payment payment = new Payment(buyerId,productId,productCount,new Shipment(shipmentAddress,0,shipmentPlan,null));
+            if(payment.getTotalPay(product1) > account1.balance){
+                return null;
+            }else {
+                account1.balance -= payment.getTotalPay(product1);
+                payment.history.add(new Payment.Record(Invoice.Status.WAITING_CONFIRMATION," "));
+                paymentTable.add(payment);
+                return payment;
             }
+        }else {
+            return null;
         }
-        return null;
     }
 
-    @PostMapping(" /{id}/submit ")
-    boolean submit
+    @PostMapping("/{id}/submit")
+    public boolean submit
             (
-                    @RequestParam int id,
+                    @PathVariable int id,
                     @RequestParam String receipt
             )
     {

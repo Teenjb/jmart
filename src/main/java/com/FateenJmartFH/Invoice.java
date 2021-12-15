@@ -5,15 +5,15 @@ import com.FateenJmartFH.dbjson.Serializable;
 import java.util.Date;
 
 /**
- * Write a description of class Invoice here.
+ * Invoice is storing data related to history and payment system.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Fateen Najib Indramustika
+ * @version 1.0
  */
 public abstract class Invoice extends Serializable
 {
     public static enum Status{
-        WAITING_CONFIRMATION,CANCELED, ON_PROGRESS, ON_DELIVERY, COMPLAINT, FINISHED, FAILED;
+        WAITING_CONFIRMATION, CANCELLED, ON_PROGRESS, ON_DELIVERY, COMPLAINT, FINISHED, FAILED;
     }
 
     public static enum Rating{

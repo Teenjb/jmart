@@ -5,10 +5,10 @@ import java.util.Calendar;
 import java.text.SimpleDateFormat;
 
 /**
- * Write a description of class Shipment here.
+ * shipment is storing type of shipment based on byte
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Fateen Najib Indramustika
+ * @version 1.0
  */
 public class Shipment
 {

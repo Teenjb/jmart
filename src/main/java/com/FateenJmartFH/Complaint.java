@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Class for store complaint data
+ * Class to store complaint related information with message and date of complaint
  *
  * @author Fateen najib Indramustika
  * @version 1.0

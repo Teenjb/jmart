@@ -2,10 +2,10 @@ package com.FateenJmartFH;
 
 
 /**
- * Write a description of class Payment here.
+ * Payment extend invoice is a detail data of invoice that contains any data about payments
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Fateen Najib Indramustika
+ * @version 1.0
  */
 
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ public class Payment extends Invoice
 {
     public Shipment shipment;
     public int productCount;
-    public ArrayList<Record> history;
+    public ArrayList<Record> history = new ArrayList<Record>();
 
     public Payment(int buyerId, int productId, int productCount, Shipment shipment){
         super(buyerId, productId);
@@ -25,7 +25,7 @@ public class Payment extends Invoice
 
     @Override
     public double getTotalPay(Product product) {
-        return (product.price*this.productCount)*product.discount;
+        return (product.price*this.productCount)*(1 - product.discount/100);
     }
 
     public  static class Record {
@@ -36,7 +36,7 @@ public class Payment extends Invoice
 
         public Record( Status status, String massage) {
             this.date = java.util.Calendar.getInstance().getTime();
-            this.status = Status.WAITING_CONFIRMATION;
+            this.status = status;
             this.massage = massage;
         }
 

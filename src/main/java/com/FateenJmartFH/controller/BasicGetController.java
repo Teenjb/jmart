@@ -10,6 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * BasicGetController is used as a universal get by id, get by page
+ * @param <T> generic can be used with all type of data.
+ * @author Fateen Najib Indramustika
+ *
+ */
+
 @RestController
 public interface BasicGetController <T extends Serializable> {
     @GetMapping("/{id}")

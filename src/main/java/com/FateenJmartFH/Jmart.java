@@ -1,10 +1,10 @@
 package com.FateenJmartFH;
 
 /**
- * Write a description of class Jmart here.
+ * Main class that contains all class wants to run.
  *
  * @author Fateen Najib Indramustika
- * @version (a version number or a date)
+ * @version 1.0
  */
 import com.FateenJmartFH.dbjson.JsonDBEngine;
 import com.google.gson.*;

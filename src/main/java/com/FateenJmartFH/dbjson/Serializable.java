@@ -4,10 +4,10 @@ package com.FateenJmartFH.dbjson;
 import java.util.HashMap;
 
 /**
- * Write a description of class Recognizable here.
+ * Serializable is a main class that could handle id of every class that inherit to serializable
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Fateen Najib Indramustika
+ * @version 1.0
  */
 
 public class Serializable implements Comparable<Serializable>
