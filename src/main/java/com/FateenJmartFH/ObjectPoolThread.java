@@ -13,11 +13,20 @@ public class ObjectPoolThread<T> extends Thread{
     private Vector<T> objectPool = new Vector<T>();
     private Function<T,Boolean> routine;
 
+    /**
+     * Creates Object Pool Thread.
+     * @param name The thread's name.
+     * @param routine The function to be applied.
+     */
     public ObjectPoolThread(String name, Function<T,Boolean> routine){
         super(name);
         this.routine = routine;
     }
 
+    /**
+     * Creates Object Pool Thread.
+     * @param routine The function to be applied.
+     */
     public ObjectPoolThread(Function<T,Boolean> routine){
         this.routine = routine;
     }

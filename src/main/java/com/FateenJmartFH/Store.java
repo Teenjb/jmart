@@ -6,10 +6,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Write a description of class Store here.
+ * This is class for representing a store
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Fateen Najib Indramustika
+ * @version 1.0
  */
 public class Store
 {
@@ -20,6 +20,12 @@ public class Store
     public double balance;
     public String phoneNumber;
 
+    /**
+     * Creates a store.
+     * @param name Store name
+     * @param address Store address
+     * @param phoneNumber Store phone number
+     */
     public Store(String name, String address, String phoneNumber, double balance){
         this.name = name;
         this.address = address;
@@ -30,6 +36,11 @@ public class Store
     public String toString(){
         return "name: " + (String)this.name + "\n" + "address: " + (String)this.address + "\n" + "Phone Number" + (String)this.phoneNumber;
     }
+
+    /**
+     * Method to validate store's phone number and name with certain regex
+     * @return true if phone number and name is matched from the regex, otherwise false.
+     */
     public boolean validate(){
         Pattern pattern = Pattern.compile(REGEX_PHONE);
         Matcher matcher = pattern.matcher(this.phoneNumber);

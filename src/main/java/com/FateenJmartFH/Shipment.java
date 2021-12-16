@@ -23,6 +23,9 @@ public class Shipment
     public String receipt;
     private byte plan;
 
+    /**
+     * a Class to store bit of plans
+     */
     public static class Plan{
 
         public final byte bit;
@@ -32,12 +35,25 @@ public class Shipment
         }
     }
 
+    /**
+     * Creates a shipment.
+     * @param address The address of destination.
+     * @param cost The cost of shipment.
+     * @param plan The shipment plan.
+     * @param receipt The shipment receipt
+     */
     public Shipment(String address, int cost, byte plan, String receipt){
         this.address = address;
         this.plan = plan;
         this.cost = cost;
         this.receipt = receipt;
     }
+
+    /**
+     * Method to get estimated date arrival
+     * @param reference Date reference
+     * @return a String of date estimated.
+     */
     public String getEstimatedArrival(Date reference){
         Calendar temp = Calendar.getInstance();
         if(this.plan == 1<<0|| this.plan == 1<<1){
@@ -57,6 +73,11 @@ public class Shipment
         }
     }
 
+    /**
+     * Method to check if there is minimum 1 plan match the reference.
+     * @param reference plan reference
+     * @return true if there is match plan, otherwise false.
+     */
     public boolean isDuration(Plan reference){
         if((reference.bit & this.plan) != 0){
             return true;
@@ -64,6 +85,12 @@ public class Shipment
         return false;
     }
 
+    /**
+     * Method to check if there is bit in object that match the reference.
+     * @param object object to compare
+     * @param reference plan referance
+     * @return true if there is match plan, otherwise false.
+     */
     public boolean isDuration(byte object,Plan reference){
         if((reference.bit & object) != 0){
             return true;

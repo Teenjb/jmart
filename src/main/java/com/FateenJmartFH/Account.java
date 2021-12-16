@@ -20,8 +20,13 @@ public class Account extends Serializable
     public String email;
     public String password;
     public Store store;
-    
-    
+
+    /** Creates an account with the specified information.
+     * @param name The account's name.
+     * @param email The account's email address.
+     * @param password The account's password.
+     * @param balance The account's balance.
+     */
     public Account(String name, String email, String password, double balance)
     {
         this.name = name;
@@ -30,7 +35,10 @@ public class Account extends Serializable
         this.balance = balance;
     }
 
-
+    /**
+     * Method to validate account's email and password with certain regex
+     * @return true if email and password is matched from the regex, otherwise false.
+     */
     public boolean validate(){
         Pattern pattern = Pattern.compile(REGEX_EMAIL);
         Matcher matcher = pattern.matcher(this.email);

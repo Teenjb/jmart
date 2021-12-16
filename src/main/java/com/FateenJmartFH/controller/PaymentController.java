@@ -38,6 +38,14 @@ public class PaymentController implements BasicGetController<Payment> {
         return BasicGetController.super.getPage(page, pageSize);
     }
 
+    /**
+     * For post request to accept a buyer's payment.
+     * Used by the store to continue the order.
+     * if the store doesn't accept the payment until
+     * exceeds the time limit, the order will be failed.
+     * @param id payment id.
+     * @return true if success, otherwise false.
+     */
     @PostMapping("/{id}/accept")
     public boolean accept
             (
@@ -55,6 +63,13 @@ public class PaymentController implements BasicGetController<Payment> {
         return false;
     }
 
+    /**
+     * For post request to cancel payment when the last
+     * history status is "waiting confirmation".
+     * This can be done by store or buyer.
+     * @param id payment id.
+     * @return true if success, otherwise false.
+     */
     @PostMapping("/{id}/cancel")
     public boolean cancel(
            @PathVariable int id
@@ -71,7 +86,15 @@ public class PaymentController implements BasicGetController<Payment> {
         return false;
     }
 
-
+    /**
+     * For post request to make a payment.
+     * @param buyerId buyer id.
+     * @param productId product id.
+     * @param productCount product count.
+     * @param shipmentAddress buyer's shipment address
+     * @param shipmentPlan shipment plan.
+     * @return payment after created.
+     */
     @PostMapping("/create")
     public Payment create
             (
@@ -99,6 +122,14 @@ public class PaymentController implements BasicGetController<Payment> {
         }
     }
 
+    /**
+     * For post request to submit receipt if the product has
+     * just been in the courier.
+     * This can be done by the store after accept the buyer's payment.
+     * @param id payment id.
+     * @param receipt the receipt.
+     * @return true if success, otherwise false.
+     */
     @PostMapping("/{id}/submit")
     public boolean submit
             (
@@ -120,6 +151,13 @@ public class PaymentController implements BasicGetController<Payment> {
         return false;
     }
 
+    /**
+     * Time keeper of order track.
+     * Automatically add new order history if
+     * the last one exceeds the specified time limit
+     * @param payment the payment to check.
+     * @return false after add new "delivered" status in history, otherwise false.
+     */
     private static boolean timekeeper(Payment payment) {
         Payment.Record record = payment.history.get(payment.history.size() - 1);
         long elapsed = System.currentTimeMillis() - record.date.getTime();

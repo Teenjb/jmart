@@ -21,6 +21,17 @@ public class Product extends Serializable
     public int weight;
 
 
+    /**
+     * Creates a product.
+     * @param accountId The account id of user creating this product.
+     * @param name Product name.
+     * @param weight Product weight.
+     * @param conditionUsed Product condition. False if new, true if used.
+     * @param price Product price.
+     * @param discount Product discount.
+     * @param category Product category
+     * @param shipmentPlans Product shipment plan
+     */
     public Product(int accountId, String name, int weight, boolean conditionUsed, double price, double discount, ProductCategory category, byte shipmentPlans)
     {
         this.name = name;

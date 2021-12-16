@@ -4,10 +4,10 @@ package com.FateenJmartFH.dbjson;
 import java.util.HashMap;
 
 /**
- * Serializable is a main class that could handle id of every class that inherit to serializable
- *
- * @author Fateen Najib Indramustika
- * @version 1.0
+ * Automatically assign id to an object with auto incrementing value.
+ * First instantiation starts with id 0.
+ * @author Netlab Team
+ * @version 0.1
  */
 
 public class Serializable implements Comparable<Serializable>

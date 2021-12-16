@@ -9,9 +9,10 @@ import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
 
 /**
- * Json Table is used to write and read JSON in every class or method that call json table
- * @param <T> generic as a universal type of data.
- * @author Fateen Najib Indramustika
+ * List with functionality to be written as / loaded from a JSON Array
+ * @author Netlab Team
+ * @version 0.1
+ * @param <T> Type of component elements (may translated as JSON Object)
  */
 
 public class JsonTable<T> extends Vector<T>

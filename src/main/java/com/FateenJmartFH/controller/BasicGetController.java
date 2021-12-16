@@ -19,6 +19,12 @@ import java.util.List;
 
 @RestController
 public interface BasicGetController <T extends Serializable> {
+
+    /**
+     * get the object with certain id
+     * @param id the id
+     * @return the object with certain id
+     */
     @GetMapping("/{id}")
     public default T getById (@PathVariable int id){
         return Algorithm.<T>find(getJsonTable(),e -> e.id == id);
@@ -26,6 +32,12 @@ public interface BasicGetController <T extends Serializable> {
 
     public abstract JsonTable<T> getJsonTable ();
 
+    /**
+     * get the page in certain page size of json table.
+     * @param page the page.
+     * @param pageSize the page size.
+     * @return list of all item in the page.
+     */
     @GetMapping("/page")
     public default List<T> getPage(@RequestParam int page,@RequestParam int pageSize){
         final JsonTable<T> table = getJsonTable();

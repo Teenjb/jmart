@@ -127,6 +127,12 @@ public class AccountController implements BasicGetController<Account>{
         return null;
     }
 
+    /**
+     * Post request to top up account balance
+     * @param id account id
+     * @param balance the amount balance to top up
+     * @return if success return true, otherwise false
+     */
     @PostMapping("/{id}/topup")
     Boolean topUp
             (

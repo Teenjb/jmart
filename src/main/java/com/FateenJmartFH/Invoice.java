@@ -12,10 +12,16 @@ import java.util.Date;
  */
 public abstract class Invoice extends Serializable
 {
+    /**
+     * Status represents the order status.
+     */
     public static enum Status{
         WAITING_CONFIRMATION, CANCELLED, ON_PROGRESS, ON_DELIVERY, COMPLAINT, FINISHED, FAILED;
     }
 
+    /**
+     * Rating represents the order rating from buyer.
+     */
     public static enum Rating{
         NONE,BAD,NEUTRAL,GOOD;
     }
@@ -26,6 +32,11 @@ public abstract class Invoice extends Serializable
     public int complaintId;
     public Rating rating;
 
+    /**
+     * Creates invoice.
+     * @param buyerId The buyer's id
+     * @param productId The product's id
+     */
     protected Invoice(int buyerId, int productId){
         this.buyerId = buyerId;
         this.productId = productId;
@@ -34,5 +45,10 @@ public abstract class Invoice extends Serializable
         this.rating = Rating.NONE;
     }
 
+    /**
+     * Method to get the total pay
+     * @param product The product
+     * @return the total pay
+     */
     public abstract double getTotalPay(Product product);
 }

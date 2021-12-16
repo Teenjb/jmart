@@ -15,6 +15,10 @@ public class Complaint extends Serializable
     public Date date;
     public String desc;
 
+    /**
+     * Creates a complaint
+     * @param desc The description of complaint
+     */
     public Complaint(String desc){
         this.desc = desc;
         this.date = new Date();

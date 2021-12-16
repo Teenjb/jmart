@@ -18,9 +18,17 @@ import java.util.List;
 @RestController
 @RequestMapping("/coupon")
 public class CouponController implements BasicGetController<Coupon> {
+
     @JsonAutowired(value = Coupon.class, filepath = "coupon.json")
     public static JsonTable<Coupon> couponTable;
 
+    /**
+     * For get request to know if the coupon can be applied or not.
+     * @param id coupon id.
+     * @param price product price.
+     * @param discount product discount.
+     * @return true if coupon can be applied, false otherwise.
+     */
     @GetMapping("/{id}/canApply")
     boolean canApply(@RequestParam int id, @RequestParam double price, @RequestParam double discount) {
         for (Coupon data : couponTable) {
@@ -31,6 +39,11 @@ public class CouponController implements BasicGetController<Coupon> {
         return false;
     }
 
+    /**
+     * For get request to know if the coupon is already used or not
+     * @param id coupon id.
+     * @return the condition of coupon. true means used, otherwise false.
+     */
     @GetMapping("/{id}/isUsed")
     boolean isUsed
             (
@@ -44,6 +57,12 @@ public class CouponController implements BasicGetController<Coupon> {
         return false;
     }
 
+    /**
+     * For get request to get list of coupon which available.
+     * @param page page of list
+     * @param pageSize page size of list
+     * @return list of coupon which available.
+     */
     @GetMapping("/getAvailable")
 
     List<Coupon> getAvailable
@@ -54,6 +73,10 @@ public class CouponController implements BasicGetController<Coupon> {
         return Algorithm.paginate(couponTable, page, pageSize, pred -> !pred.isUsed());
     }
 
+    /**
+     * Method to get coupon Json Table
+     * @return account Json Table
+     */
     @Override
     public JsonTable<Coupon> getJsonTable() {
         return couponTable;
